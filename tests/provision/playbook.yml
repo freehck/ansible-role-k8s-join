@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: true
+  roles:
+    - role: freehck.k8s_base
+    - role: freehck.k8s_init
+      when: k8s_join_is_master
+    - role: freehck.k8s_join
+#    - role: freehck.k8s_calico
+#      when: k8s_join_is_master

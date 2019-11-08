@@ -1,0 +1,18 @@
+# common params
+k8s_ver: "1.16.2-00"
+k8s_node_ip: "{{ ansible_host }}"
+
+# k8s_base is an implicit dependency
+k8s_base_node_ip: "{{ k8s_node_ip }}"
+k8s_base_ver: "{{ k8s_ver }}"
+
+# k8s_init is an implicit dependency
+k8s_init_cidr: "192.168.0.0/16"
+k8s_init_node_ip: "{{ ansible_host }}"
+k8s_init_node_name: "{{ inventory_hostname }}"
+
+# k8s_calico is an implicit dependency
+# k8s_calico_ver: "v3.10"
+
+# this role configuration
+k8s_join_is_master: "{{ k8s_is_master | default('false') }}"

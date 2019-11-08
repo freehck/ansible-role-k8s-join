@@ -1,0 +1,1 @@
+kubeadm join 10.118.19.10:6443 --token 05ah8p.lpttpgq4750kihd7     --discovery-token-ca-cert-hash sha256:3f5516afdcf2c106260817fb4d76ae786856f10889a847136d611a975005bef7 

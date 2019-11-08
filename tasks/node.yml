@@ -1,0 +1,11 @@
+---
+
+- name: copy the join command to server location
+  copy:
+    src: "{{ k8s_join_command_filename }}"
+    dest: "/tmp/{{ k8s_join_command_filename }}"
+    mode: 0777
+
+- name: run join command
+  command: sh /tmp/{{ k8s_join_command_filename }}
+

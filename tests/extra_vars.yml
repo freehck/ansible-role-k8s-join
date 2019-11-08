@@ -1,0 +1,23 @@
+# vagrant specific
+ansible_user: "vagrant"
+
+# common params
+k8s_ver: "1.16.2-00"
+k8s_node_ip: "{{ ansible_host }}"
+
+# k8s_base is an implicit dependency
+k8s_base_node_ip: "{{ k8s_node_ip }}"
+k8s_base_ver: "{{ k8s_ver }}"
+
+# k8s_init is an implicit dependency
+k8s_init_cidr: "192.168.0.0/16"
+k8s_init_node_ip: "{{ ansible_host }}"
+k8s_init_node_name: "{{ inventory_hostname }}"
+
+# k8s_calico is an implicit dependency
+# k8s_calico_ver: "v3.10"
+
+# this role configuration
+k8s_join_is_master: "{{ k8s_is_master }}"
+
+# PYTHONUNBUFFERED=1 ANSIBLE_FORCE_COLOR=true ANSIBLE_HOST_KEY_CHECKING=false ANSIBLE_SSH_ARGS='-o UserKnownHostsFile=/dev/null -o ControlMaster=auto -o ControlPersist=60s' ansible-playbook --private-key=/home/someone/.vagrant.d/insecure_private_key --user=vagrant --connection=ssh --limit='machine1' --inventory-file=/home/someone/coding-in-a-project/.vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory playbook.yml

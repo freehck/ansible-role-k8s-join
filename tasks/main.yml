@@ -1,0 +1,7 @@
+---
+
+- include_tasks: master.yml
+  when: k8s_join_is_master|bool
+
+- include_tasks: node.yml
+  when: not k8s_join_is_master|bool
