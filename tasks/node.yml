@@ -8,4 +8,5 @@
 
 - name: run join command
   command: sh /tmp/{{ k8s_join_command_filename }}
-
+  args:
+    creates: /etc/kubernetes/kubelet.conf

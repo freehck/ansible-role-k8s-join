@@ -1,6 +1,6 @@
 ---
 
-- hosts: all
+- hosts: k8s_cluster
   become: true
   roles:
     - role: freehck.k8s_base
