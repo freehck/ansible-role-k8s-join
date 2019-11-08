@@ -18,19 +18,40 @@ Role Variables
 Example
 -------
 
-    - hosts: k8s-master
+## group_vars/inventory
+
+    k8s-node-0 ansible_host=10.118.19.10 k8s_is_master=true
+    k8s-node-1 ansible_host=10.118.19.11
+    k8s-node-2 ansible_host=10.118.19.12
+    
+    [k8s_cluster]
+    k8s-node-0
+    k8s-node-1
+    k8s-node-2
+
+## playbook.yml
+
+    - hosts: k8s_cluster
       become: true
       vars:
+        # common params
+        k8s_ver: "1.16.2-00"
+        k8s_node_ip: "{{ ansible_host }}"
         # k8s_base is an implicit dependency
-        k8s_base_node_ip: "10.118.19.10"
-        k8s_base_ver: "1.16.2-00"
-        # this role configurations
+        k8s_base_node_ip: "{{ k8s_node_ip }}"
+        k8s_base_ver: "{{ k8s_ver }}"
+        # k8s_init is an implicit dependency
         k8s_init_cidr: "192.168.0.0/16"
-        k8s_init_node_ip: "10.118.19.10"
+        k8s_init_node_ip: "{{ ansible_host }}"
         k8s_init_node_name: "{{ inventory_hostname }}"
+        # this role configuration
+        k8s_join_is_master: "{{ k8s_is_master | default('false') }}"
       roles:
         - role: freehck.k8s_base
         - role: freehck.k8s_init
+          when: k8s_join_is_master
+        - role: freehck.k8s_join
+
 
 
 Notes
