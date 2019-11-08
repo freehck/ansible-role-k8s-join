@@ -18,7 +18,7 @@ Role Variables
 Example
 -------
 
-## group_vars/inventory
+###### group_vars/inventory
 
     k8s-node-0 ansible_host=10.118.19.10 k8s_is_master=true
     k8s-node-1 ansible_host=10.118.19.11
@@ -29,7 +29,7 @@ Example
     k8s-node-1
     k8s-node-2
 
-## playbook.yml
+###### playbook.yml
 
     - hosts: k8s_cluster
       become: true
