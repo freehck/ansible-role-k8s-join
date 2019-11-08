@@ -18,7 +18,7 @@ Role Variables
 Example
 -------
 
-###### group_vars/inventory
+###### inventory
 
     k8s-node-0 ansible_host=10.118.19.10 k8s_is_master=true
     k8s-node-1 ansible_host=10.118.19.11
