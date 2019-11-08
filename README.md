@@ -1,0 +1,56 @@
+freehck.k8s_join
+=========
+
+Join nodes to Kubernetes cluster
+
+Description
+-----------
+
+This role is applied to all the nodes and to Kubernetes master. Master host must have `k8s_join_is_master` set to `true`.
+
+Role Variables
+--------------
+
+`k8s_join_command_filename`: The filename to store auth token/command, default is `k8s-join-command`
+
+`k8s_join_is_master`: this boolean flag must be only set to `true` for one specific host in Kubernetes cluster, that is a master one; default is `false`
+
+Example
+-------
+
+    - hosts: k8s-master
+      become: true
+      vars:
+        # k8s_base is an implicit dependency
+        k8s_base_node_ip: "10.118.19.10"
+        k8s_base_ver: "1.16.2-00"
+        # this role configurations
+        k8s_init_cidr: "192.168.0.0/16"
+        k8s_init_node_ip: "10.118.19.10"
+        k8s_init_node_name: "{{ inventory_hostname }}"
+      roles:
+        - role: freehck.k8s_base
+        - role: freehck.k8s_init
+
+
+Notes
+-----
+
+As you can see in the example, this role is designed to be applied to both Kubernetes master and nodes. On master this role generates auth token and save it into the file on ansible controler. Do not commit this file, it will expire in a while! Then on nodes it uses this token for them to join cluster.
+
+Install
+-------
+
+This role can be installed from [Ansible Galaxy](https://galaxy.ansible.com/):
+
+`ansible-galaxy install freehck.k8s_join`
+
+License
+-------
+
+MIT
+
+Author Information
+------------------
+
+Dmitrii Kashin, <freehck@freehck.ru>
